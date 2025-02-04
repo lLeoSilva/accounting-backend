@@ -7,7 +7,7 @@ from alembic import context
 sys.path.append(".")
 
 # Import your models
-from app.models import Base  # Make sure this matches your actual model import
+from app.models.models import Base
 
 # Load Alembic configuration
 config = context.config
