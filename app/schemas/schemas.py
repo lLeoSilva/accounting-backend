@@ -21,6 +21,10 @@ class UserOut(UserBase):
     class Config:
         from_attributes = True
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
 class TransactionBase(BaseModel):
     amount: float
     category: str
