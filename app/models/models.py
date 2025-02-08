@@ -1,11 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, func
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, func, Boolean, TIMESTAMP, text
 from sqlalchemy.orm import relationship
-from app.database import Base
-
-from sqlalchemy import Column, String, Boolean, TIMESTAMP, Integer, text
-from sqlalchemy.orm import declarative_base
-
-Base = declarative_base()
+from app.models.base import Base  # ✅ Ensure Base is imported from base.py
 
 class User(Base):
     __tablename__ = "users"
@@ -20,6 +15,8 @@ class User(Base):
     is_active = Column(Boolean, nullable=False, default=True)
     created_at = Column(TIMESTAMP, server_default=text("NOW()"))
     updated_at = Column(TIMESTAMP, server_default=text("NOW()"), onupdate=text("NOW()"))
+
+    transactions = relationship("Transaction", back_populates="user")
 
 class Transaction(Base):
     __tablename__ = "transactions"

@@ -6,8 +6,9 @@ from alembic import context
 # Ensure Alembic can find the `app` directory
 sys.path.append(".")
 
-# Import your models
-from app.models.models import Base
+# Import your Base and models
+from app.models.base import Base  
+from app.models.models import User, Transaction  
 
 # Load Alembic configuration
 config = context.config
@@ -17,13 +18,10 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Set target metadata for Alembic
-target_metadata = Base.metadata
+target_metadata = Base.metadata  # ✅ Ensure this points to the correct metadata
 
 def run_migrations_offline() -> None:
-    """Run migrations in 'offline' mode.
-
-    In this mode, Alembic doesn't connect to the DB but generates SQL scripts.
-    """
+    """Run migrations in 'offline' mode."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -36,10 +34,7 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
-
-    Here, Alembic connects to the DB and applies migrations directly.
-    """
+    """Run migrations in 'online' mode."""
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
@@ -55,7 +50,6 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             context.run_migrations()
 
-# Determine whether to run offline or online mode
 if context.is_offline_mode():
     run_migrations_offline()
 else:
