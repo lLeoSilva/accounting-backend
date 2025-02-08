@@ -4,6 +4,10 @@ from app.api.routes import auth, transactions, users
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
+
 # Allow frontend requests (CORS policy)
 app.add_middleware(
     CORSMiddleware,
@@ -18,6 +22,11 @@ app.add_middleware(
 )
 
 # Register routers
-app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-app.include_router(transactions.router, prefix="/transactions", tags=["Transactions"])
-app.include_router(users.router, prefix="", tags=["Users"])
+# Include routers
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(users.router, prefix="/users", tags=["users"])
+app.include_router(transactions.router, prefix="/transactions", tags=["transactions"])
+
+# app.include_router(auth.router, prefix="/auth", tags=["Auth"])
+# app.include_router(transactions.router, prefix="/transactions", tags=["Transactions"])
+# app.include_router(users.router, prefix="", tags=["Users"])
