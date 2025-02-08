@@ -7,10 +7,14 @@ app = FastAPI()
 # Allow frontend requests (CORS policy)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change to frontend domain in production
+    allow_origins=[
+        "https://api.hogarsantaelena.com", 
+        "https://accounting.hogarsantaelena.com",
+        "https://hogarsantaelena.com"
+    ],  # Add both frontend and backend domains
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, OPTIONS, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Register routers
