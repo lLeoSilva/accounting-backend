@@ -20,3 +20,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def get_password_hash(password: str) -> str:
+    """Hash a password using bcrypt."""
+    return pwd_context.hash(password)
