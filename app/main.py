@@ -12,6 +12,7 @@ def read_root():
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:3000",
         "https://api.hogarsantaelena.com", 
         "https://accounting.hogarsantaelena.com",
         "https://hogarsantaelena.com"
